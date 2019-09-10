@@ -1,0 +1,28 @@
+'use strict';
+const DEFAULT_HOST = 'https://107lo.com/';
+// const DEFAULT_HOST = 'https://seahinet.shop/';
+// const DEFAULT_HOST = 'http://192.168.1.90/';
+// const DEFAULT_HOST = 'http://192.168.1.120/ecomv2/';
+const API_ADDRESS = '';
+const CONFIG = {
+  getSmsCode:function (type) {
+    return API_ADDRESS+'/sms/sendcode'
+  },
+  HOST: 			API_ADDRESS,
+  LOGIN:    		API_ADDRESS + '/login/verifiycode',
+  CATEGORYLIST: 	API_ADDRESS + '/stores/assortment',
+  GOODSLIST: 		API_ADDRESS + '/goods/goodslist',
+  CARTLIST: 		API_ADDRESS + '/cart/cartlists',
+  ADDRESSLIST: 	API_ADDRESS + '/user/address',
+  ORDERLIST:  	API_ADDRESS + '/user/order',
+  COUPONLIST:  	API_ADDRESS + '/coupon/lists',
+  GOODSDETAIL: 	API_ADDRESS + '/goods/goodsdetail',
+  DEFAULT_HOST: DEFAULT_HOST ? DEFAULT_HOST : 'https://192.168.1.90/',
+  DEFAULT_IMG_URL: DEFAULT_HOST + 'pub/resource/image/resized/',
+  // PUBLIC_KEY: '{"n":"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA5KMXI/CAUAD4lahpUu1MoVFYxhOUCl8/+T4DMauac7kxdV++Dvt+mgjQxOFHq0MYdxIYvsVkq2SqbLzoAmPdooQI0+4Ar94kw544tt8fhBaYkhdn7v8KRAlIJ61ibsBslzzVRlc6l6hJUPOf3tyYhmCmbOFvNscXzx/HLCAFb0ohoDfSeIN2h0TURIT1LEXEOYky9WUPciMg9xf3pRopHk9K6s7tOj2fzJAow+SRNlpHh5vrGlPI8epQIxjXKh7JMa8Ld9tJWLegw9xBxo1GldkI0z3WTPE7usALnUhoYSDHvmghch2+Q6ck4C+9/gZW0yxOAHAgNv6mv8QgXc1zHwIDAQAB","e":"10001"}',
+  PUBLIC_KEY: '{"n":"a67323caaf0d9d7c444d34d90dbaf105dbbf87aa814d292b5f2e92845321bf470a0c5c20be3215cbc81207e9742ee73146b949bc6454ecaa952c2665cf60240f97c4ab72a42b24bd98895fac2823aa2a4a461aec68c8e1fc2daefc510d2377071e5914d83cea641713d9ed3ab72d4d2382fca56e2631dd4f7335ec9207e28977c2c686c44aba024599e8dbb3caaaaae7b358915999245019d50a5d5864119ad244a41123ccecb72371581505147ca2894eb372712e78d49882d9ddbe668b4189dee039fd0cc7e3fe1d894bbd68a826d82d464326d85a2477386083a0f51906a139ffb8eff3e1fe1663331ba109bc5f7533ee8fc146a6878d038d3986d93b7451","e":"010001"}',
+  CLIENT_KEY:'PWFNMY8BBBMQD3V8UMVWKX65IDXF81WW',
+  CLIENT_SECRET:'7BWXU19WK1HWTJJAJJE3BWMVXTAL3KYO',
+};
+
+module.exports = CONFIG;
