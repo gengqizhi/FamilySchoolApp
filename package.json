@@ -8,11 +8,16 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "dva-core": "^1.4.0",
     "react": "16.8.6",
-    "react-native": "0.60.5"
+    "react-native": "0.60.5",
+    "react-native-swiper": "^1.5.14",
+    "react-navigation": "^2.14.0",
+    "react-redux": "^5.0.7"
   },
   "devDependencies": {
     "@babel/core": "^7.6.0",
+    "@babel/plugin-proposal-decorators": "^7.1.2",
     "@babel/runtime": "^7.6.0",
     "@react-native-community/eslint-config": "^0.0.5",
     "babel-jest": "^24.9.0",
