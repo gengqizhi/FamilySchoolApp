@@ -15,19 +15,107 @@ class Router extends Component {
     return createBottomTabNavigator({
       Home: {
         screen: Home,
-        navigationOptions: {header:null},
+        navigationOptions: {
+          header:null,
+          tabBarLabel: "通知",
+          gesturesEnabled: true,
+          //这里设置Tabbar不同页面可能会不同的属性
+          tabBarVisible: true,
+          // tabBarIcon: ({ tintColor, focused }) => {
+          //     return (
+          //         <Image
+          //             source={
+          //                 focused
+          //                     ? require("../static/img/1.png")
+          //                     : require("../static/img/2.png")
+          //             }
+          //             style={styles.tabbarImage}
+          //             resizeMode='contain'
+          //         />
+          //     );
+          // },
+          tabBarOnPress: ({ navigation, defaultHandler }) => {
+              defaultHandler();
+          }
+        },
       },
       Class: {
         screen: Mine,
-        navigationOptions: {header: null},
+        navigationOptions: {
+            header:null,
+            tabBarLabel: "班级",
+            gesturesEnabled: true,
+            //这里设置Tabbar不同页面可能会不同的属性
+            tabBarVisible: true,
+            // tabBarIcon: ({ tintColor, focused }) => {
+            //     return (
+            //         <Image
+            //             source={
+            //                 focused
+            //                     ? require("../static/img/1.png")
+            //                     : require("../static/img/2.png")
+            //             }
+            //             style={styles.tabbarImage}
+            //             resizeMode='contain'
+            //         />
+            //     );
+            // },
+            tabBarOnPress: ({ navigation, defaultHandler }) => {
+                defaultHandler();
+            }
+        },
       },
       Chat: {
         screen: Mine,
-        navigationOptions: {header: null},
+        navigationOptions: {
+            header:null,
+            tabBarLabel: "聊天",
+            gesturesEnabled: true,
+            //这里设置Tabbar不同页面可能会不同的属性
+            tabBarVisible: true,
+            // tabBarIcon: ({ tintColor, focused }) => {
+            //     return (
+            //         <Image
+            //             source={
+            //                 focused
+            //                     ? require("../static/img/1.png")
+            //                     : require("../static/img/2.png")
+            //             }
+            //             style={styles.tabbarImage}
+            //             resizeMode='contain'
+            //         />
+            //     );
+            // },
+            tabBarOnPress: ({ navigation, defaultHandler }) => {
+                defaultHandler();
+            }
+        },
       },
       Me: {
         screen: Mine,
-        navigationOptions: {header: null},
+        navigationOptions: {
+            header:null,
+            tabBarLabel: "我",
+            gesturesEnabled: true,
+            //这里设置Tabbar不同页面可能会不同的属性
+            tabBarVisible: true,
+            // tabBarIcon: ({ tintColor, focused }) => {
+            //     return (
+            //         <Image
+            //             source={
+            //                 focused
+            //                     ? require("../static/img/1.png")
+            //                     : require("../static/img/2.png")
+            //             }
+            //             style={styles.tabbarImage}
+            //             resizeMode='contain'
+            //         />
+            //     );
+            // },
+            tabBarOnPress: ({ navigation, defaultHandler }) => {
+                defaultHandler();
+            }
+        },
       },
     }, {
       tabBarPosition: 'bottom',
