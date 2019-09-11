@@ -1,3 +1,5 @@
 rootProject.name = 'FamilySchool'
 apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
+include ':app', ':aurora-imui-react-native'
+project(':aurora-imui-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/aurora-imui-react-native/ReactNative/android')
 include ':app'
