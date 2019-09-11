@@ -9,7 +9,7 @@ import {
   StyleSheet,
   Image,
   View,
-  StatusBar,
+  SafeAreaView,
 } from 'react-native';
 // import SideMenu from 'react-native-side-menu';
 // import CookieManager from 'react-native-cookies';
@@ -82,9 +82,9 @@ class Home extends Component {
 
   render() {
       return(
-          <View style={{paddingTop: 40}}>
+          <SafeAreaView style={{flex: 1, backgroundColor:'blue'}}>
               <Content/>
-          </View>
+          </SafeAreaView>
       );
   }
 }
