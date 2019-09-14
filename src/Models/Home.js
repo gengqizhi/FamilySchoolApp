@@ -14,7 +14,18 @@ export default {
     loginFailedReason: '登录失败',
     count: 0,
     isOpen: false,
-    // menuDataSource: ds.cloneWithRows([{'uri':'Garment','name':'服装城'}]),
+    messages: [
+      {
+        _id: 1,
+        text: 'Hello developer',
+        createdAt: new Date(),
+        user: {
+          _id: 2,
+          name: 'React Native',
+          avatar: 'https://placeimg.com/140/140/any',
+        },
+      },
+    ],
   },
   reducers: {
     // 处理同步的action
