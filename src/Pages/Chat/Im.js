@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {
-  Platform,
+  DeviceEventEmitter,
+  Platform
 } from 'react-native';
 import {
   init, // 初始化 SDK，只需要调用一次
@@ -85,34 +86,127 @@ import {
   ConversationType, // 会话类型
   MentionedType, // 消息提醒类型:提醒所有-->ALL, 部分提醒-->PART
 } from "rongcloud-react-native-imlib";
-import Config from '../../Utils/Config'
+import {WToast} from 'react-native-smart-tip';
+import Config from '../../Utils/Config';
+import sha256 from 'crypto-js/sha256';
+
 init(Config.RONG_CLOUD_APP_KEY);
+
 // TODO 录音组件
+
+//  模拟头像用
+const Avatar = [
+  require('../../Assets/Image/avatar/avatar1.jpg'),
+  require('../../Assets/Image/avatar/avatar2.jpg'),
+  require('../../Assets/Image/avatar/avatar3.jpg'),
+  require('../../Assets/Image/avatar/avatar4.jpg'),
+  require('../../Assets/Image/avatar/avatar5.jpg'),
+  require('../../Assets/Image/avatar/avatar6.jpg'),
+  require('../../Assets/Image/avatar/avatar7.jpg'),
+  require('../../Assets/Image/avatar/avatar8.jpg'),
+  require('../../Assets/Image/avatar/avatar9.jpg'),
+  require('../../Assets/Image/avatar/avatar10.jpg'),
+  require('../../Assets/Image/avatar/avatar11.jpg'),
+  require('../../Assets/Image/avatar/avatar12.jpg'),
+  require('../../Assets/Image/avatar/avatar13.jpg'),
+  require('../../Assets/Image/avatar/avatar14.jpg'),
+  require('../../Assets/Image/avatar/avatar15.jpg'),
+  require('../../Assets/Image/avatar/avatar16.jpg'),
+];
 
 class Im extends Component {
   // 连接融云
-  connect(){
+  connect() {
     let token = 'i6+b2+pu5CLGBqsc+gEr3nUtniGjze2mQ32/rOJ3M5vT/qyU5loF8yLRSV0q8Bf2lwy7lZZId8ndiVfJNFSrRg=='; // test1
-    if(Platform.OS == 'ios'){
+    if (Platform.OS == 'ios') {
       token = 'I4uCufnns74PgqWm2A05+5pQZ0/RIYLiS8aILqZ41QcRTqm1SnQ+BwAKrwKBrKzGWbFql+4p38Sssw6nhY6I2Q==' // test2
     }
-    connect(
-      token,
-      userId => {
-        alert('登录成功!')
-      },
-      errorCode => {
-        alert(errorCode)
-        if (errorCode != 34001) alert(errorCode);
-        // res(errorCode)
-      },// 34001:已经登录
-      () => {
-        alert('Token不正确或已过期/正式删除');
-        console.log('Token不正确或已过期/正式删除');
-        // res()
+    disconnect();// TODO 为了登录成功, 获取头像, 正式删除
+    return new Promise(res => {
+      connect(
+        token,
+        userId => {
+          res({
+            id: userId,
+            avatar: this.getAvatar(userId)
+          });
+          // 添加新消息监听
+          this.onMessage();
+          WToast.show({data: '登录成功!', position: WToast.position.CENTER});
+        },
+        errorCode => {
+          if (errorCode != 34001) {
+            WToast.show({data: errorCode, position: WToast.position.CENTER});
+          } else {
+            this.onMessage();
+            WToast.show({data: '已连接', position: WToast.position.CENTER});
+          }
+        },
+        () => {
+          WToast.show({data: 'Token不正确或已过期/正式删除', position: WToast.position.CENTER});
+        }
+      );
+    });
+  }
+
+  getAvatar(id = ''){
+    // 模拟头像
+    let a = sha256(id).words[1] + '';
+    let b = '';
+    for (let i = 0; i < a.length; i++) {
+      if (a[i] > 0) {
+        b = b + a[i];
+        if(b.length > 1)break;
+      }
+    }
+    if(b>16){
+      b = parseInt(b/7);
+    }
+    return Avatar[b];
+  }
+
+  // 发送消息
+  send(msg) {
+    let message = {
+      conversationType: msg.type === 1 ? ConversationType.PRIVATE : ConversationType.GROUP, // 单聊/群聊
+      targetId: msg.targetId, // 接收人bfCode
+      content: {
+        objectName: ObjectName.Text,
+        content: msg.msg
+      }
+    };
+    sendMessage(message, {
+        success: (messageId) => {
+          WToast.show({data: '发送成功!', position: WToast.position.CENTER});
+        },
+        error: (errorCode, messageId, errorMessage) => {
+          WToast.show({data: '发送失败!', position: WToast.position.CENTER});
+        }
       }
     );
   }
+
+  // 收到新消息监听
+  onMessage() {
+    addReceiveMessageListener(message => {
+      // { message:
+      // { targetId: 'test1',
+      //   senderUserId: 'test1',
+      //   objectName: 'RC:TxtMsg',
+      //   receivedStatus: 0,
+      //   sentTime: 1568469231535,
+      //   messageDirection: 2,
+      //   conversationType: 1,
+      //   receivedTime: 1568469231546,
+      //   messageId: 3,
+      //   extra: '',
+      //   messageUId: 'BD60-6IFB-QI25-4JF0',
+      //   content: { content: '123', objectName: 'RC:TxtMsg', extra: '' } },
+      //   left: 0 }
+      DeviceEventEmitter.emit('onMessage', message);
+    });
+  }
+
 }
 
 module.exports = new Im();

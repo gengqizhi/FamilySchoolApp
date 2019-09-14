@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
         fontWeight: '100',
     },
 });
+import IM from '../../../Pages/Chat/Im';
 export default class GiftedAvatar extends React.Component {
     constructor() {
         super(...arguments);
@@ -59,15 +60,15 @@ export default class GiftedAvatar extends React.Component {
     renderAvatar() {
         const { user } = this.props;
         if (user) {
-            if (typeof user.avatar === 'function') {
-                return user.avatar([styles.avatarStyle, this.props.avatarStyle]);
-            }
-            else if (typeof user.avatar === 'string') {
-                return (<Image source={{ uri: user.avatar }} style={[styles.avatarStyle, this.props.avatarStyle]}/>);
-            }
-            else if (typeof user.avatar === 'number') {
-                return (<Image source={user.avatar} style={[styles.avatarStyle, this.props.avatarStyle]}/>);
-            }
+            // if (typeof user.avatar === 'function') {
+            //     return user.avatar([styles.avatarStyle, this.props.avatarStyle]);
+            // }
+            // else if (typeof user.avatar === 'string') {
+                return (<Image source={user.avatar ? { uri: user.avatar } : IM.getAvatar(user._id)} style={[styles.avatarStyle, this.props.avatarStyle]}/>);
+            // }
+            // else if (typeof user.avatar === 'number') {
+            //     return (<Image source={user.avatar} style={[styles.avatarStyle, this.props.avatarStyle]}/>);
+            // }
         }
         return null;
     }
@@ -77,16 +78,16 @@ export default class GiftedAvatar extends React.Component {
       </Text>);
     }
     render() {
-        if (!this.props.user ||
-            (!this.props.user.name && !this.props.user.avatar)) {
-            // render placeholder
-            return (<View style={[
-                styles.avatarStyle,
-                styles.avatarTransparent,
-                this.props.avatarStyle,
-            ]} accessibilityTraits='image'/>);
-        }
-        if (this.props.user.avatar) {
+        // if (!this.props.user ||
+        //     (!this.props.user.name && !this.props.user.avatar)) {
+        //     // render placeholder
+        //     return (<View style={[
+        //         styles.avatarStyle,
+        //         styles.avatarTransparent,
+        //         this.props.avatarStyle,
+        //     ]} accessibilityTraits='image'/>);
+        // }
+        // if (this.props.user) {
             return (<TouchableOpacity disabled={!this.props.onPress} onPress={() => {
                 const { onPress, ...other } = this.props;
                 if (this.props.onPress) {
@@ -95,7 +96,7 @@ export default class GiftedAvatar extends React.Component {
             }} accessibilityTraits='image'>
           {this.renderAvatar()}
         </TouchableOpacity>);
-        }
+        // }
         this.setAvatarColor();
         return (<TouchableOpacity disabled={!this.props.onPress} onPress={() => {
             const { onPress, ...other } = this.props;
